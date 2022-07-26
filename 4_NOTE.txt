@@ -1,0 +1,66 @@
+jenkins
+======
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+yum install git maven java-1.8.0-openjdk jenkins -y
+systemctl restart jenkins.service
+systemctl status jenkins.service
+
+
+
+
+
+
+maven
+=====
+yum install java-1.8.0-openjdk -y
+yum install maven
+wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+tar -zxvf apache-maven-3.8.6-bin.tar.gz
+cd apache-maven-3.8.6
+mvn archetype:generate
+
+
+
+git init
+git add .
+git commit -m "commits"
+git remote add origin https://github.com/Jayavardhan-swarna/integration-of-jenkins.git
+git push origin master 
+
+
+
+
+
+
+docker
+======
+yum install docker -y
+systemctl start docker.service
+systemctl status docker.service
+
+
+
+yum install docker
+service docker start
+
+useradd dockeradmin
+passwd dockeradmin
+usermod -aG docker dockeradmin
+vim /etc/ssh/sshd_config
+	yes
+systemctl restart sshd
+
+
+
+ mkdir /opt/docker
+
+### vi Dockerfile
+# Pull base image 
+From tomcat:8-jre8 
+
+# Maintainer
+MAINTAINER "valaxytech" 
+
+# copy war file on to container 
+COPY ./webapp.war /usr/local/tomcat/webapps
